@@ -14,7 +14,7 @@ while True:
 
     cv2.imshow('Webcam', frame)
 
-    if cv2.waitKey(1) == ord('q'): 
+    if cv2.waitKey(1) == ord('s'): 
         break
 
 cap.release() 
