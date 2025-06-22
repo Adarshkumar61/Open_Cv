@@ -31,7 +31,7 @@ while True:
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         output = cv2.Canny(gray, 100, 200)
     elif filter_mode == 'face':
-        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)  
         faces = face_cascade.detectMultiScale(gray, 1.1, 4)
         for (x, y, w, h) in faces:
             cv2.rectangle(output, (x, y), (x + w, y + h), (0, 255, 0), 2)
