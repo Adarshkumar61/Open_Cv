@@ -6,7 +6,7 @@ gray = cv2.cvtColor(img, )
 cv2.imshow('org', img) 
 cv2.imshow('gray', gray)
 import numpy as np
-
+ 
 # Create a black image
 imgg = np.zeros((300, 300, 3), dtype=np.uint8)
 
