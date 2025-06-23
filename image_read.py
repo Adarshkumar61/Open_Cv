@@ -8,7 +8,7 @@ cv2.imshow('gray', gray)
 import numpy as np
  
 # Create a black image
-imgg = np.zeros((300, 300, 3), dtype=np.uint8)
+imgg = np.zeros((300, 300, 3), dtype=np.uint8) 
 
 # Draw a red dot at (50, 50)
 cv2.circle(imgg, (50, 50), 3, (0, 0, 255), -1)
