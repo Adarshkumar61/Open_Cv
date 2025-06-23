@@ -3,7 +3,7 @@ import cv2
 img = cv2.imread('image/ada.png', cv2.IMREAD_UNCHANGED)
 gray = cv2.cvtColor(img, )
 
-cv2.imshow('org', img)
+cv2.imshow('org', img) 
 cv2.imshow('gray', gray)
 import numpy as np
 
