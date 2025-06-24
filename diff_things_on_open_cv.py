@@ -18,7 +18,7 @@ cam = cv2.VideoCapture(0)
 while True:
     ret, frame = cam.read()
     if not ret:
-        print('frame not capturing..')
+        print('frame not capturing..') 
         break
     cv2.imshow('webcam', frame)
     
