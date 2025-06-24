@@ -13,18 +13,55 @@ import cv2
 #        break
 
 
-cam = cv2.VideoCapture(0)
+# cam = cv2.VideoCapture(0)
 
-while True:
-    ret, frame = cam.read()
-    if not ret:
-        print('frame not capturing..')  
-        break 
-    cv2.imshow('webcam', frame) 
+# while True:
+#     ret, frame = cam.read()
+#     if not ret:
+#         print('frame not capturing..')  
+#         break 
+#     cv2.imshow('webcam', frame) 
     
-    key = cv2.waitKey(1)
-    if key == ord('b'):
-        break
+#     key = cv2.waitKey(1)
+#     if key == ord('b'):
+#         break
         
-cam.release()
-cv2.destroyAllWindows()
+# cam.release()
+# cv2.destroyAllWindows()
+
+import datetime
+cam = cv2.VideoCapture(0)
+filter_mode = 'normal'
+face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml")
+if not cam.isOpened:
+    print("Cant access the camera")
+    
+    while True:
+        ret, frame = cam.read()
+        if not ret:
+            print('frame not capturing')
+            break
+        ouput = frame.copy()
+        
+        #applying filters:
+        if filter_mode == 'gray':
+            ouput = cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY)
+        elif filter_mode == 'edge':
+            gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+            output = cv2.Canny(gray, 100, 200)
+        elif filter_mode == 'face':
+            gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+            faces = face_cascade.detectMultiScale(gray, 1.1, 4)
+            for x, y, w, z in faces:
+                cv2.rectangle(output, (x, y), (x+w, y+z), (0, 255, 0), 2)
+                
+        window = f'webcam Name : {filter_mode.upper()}'
+        cv2.imshow(window, output)
+        
+        key = cv2.waitKey(1)
+        
+        if key == ord('b'):
+            break
+        elif key == ord('f'):
+            filter_mode = 'face'
+        elif key == ord()
