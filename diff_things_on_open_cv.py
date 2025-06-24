@@ -19,7 +19,7 @@ while True:
     ret, frame = cam.read()
     if not ret:
         print('frame not capturing..')  
-        break
+        break 
     cv2.imshow('webcam', frame) 
     
     key = cv2.waitKey(1)
