@@ -20,7 +20,7 @@ while True:
     if not ret:
         print('frame not capturing..') 
         break
-    cv2.imshow('webcam', frame)
+    cv2.imshow('webcam', frame) 
     
     key = cv2.waitKey(1)
     if key == ord('b'):
