@@ -95,7 +95,7 @@ import numpy as np
 #     ret, frame = cap.read()
 #     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
-#     # Red color mask
+#     # Red color mask 
 #     lower_red = np.array([0, 120, 70])
 #     upper_red = np.array([10, 255, 255])
 #     mask = cv2.inRange(hsv, lower_red, upper_red)
