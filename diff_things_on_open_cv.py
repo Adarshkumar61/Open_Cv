@@ -29,59 +29,115 @@ import cv2
 # cam.release()
 # cv2.destroyAllWindows()
 
-import datetime
-face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml")
-cam = cv2.VideoCapture(0)
+# import datetime
+# face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml")
+# cam = cv2.VideoCapture(0)
 
-filter_mode = 'normal'
+# filter_mode = 'normal'
 
-while True:
-    ret, frame = cam.read()
-    if not ret:
-        print('frame not capturing')
-        break
-    output = frame.copy()
+# while True:
+#     ret, frame = cam.read()
+#     if not ret:
+#         print('frame not capturing')
+#         break
+#     output = frame.copy()
         
-        #applying filters:
-    if filter_mode == 'gray':
-            output = cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY)
-    elif filter_mode == 'edge':
-            gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-            output = cv2.Canny(gray, 100, 200)
-    elif filter_mode == 'face':
-            gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-            faces = face_cascade.detectMultiScale(gray, 1.1, 4)
-            for x, y, w, z in faces:
-                cv2.rectangle(output, (x, y), (x+w, y+z), (120, 125, 127), 2)
-    elif filter_mode == 'countour':
-        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-        ret, thresh = cv2.threshold(gray, 127, 255, cv2.THRESH_BINARY)
-        contours, hierarchy = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-        cv2.drawContours(frame, contours, -1, (0,255,0), 3)
+#         #applying filters:
+#     if filter_mode == 'gray':
+#             output = cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY)
+#     elif filter_mode == 'edge':
+#             gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+#             output = cv2.Canny(gray, 100, 200)
+#     elif filter_mode == 'face':
+#             gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+#             faces = face_cascade.detectMultiScale(gray, 1.1, 4)
+#             for x, y, w, z in faces:
+#                 cv2.rectangle(output, (x, y), (x+w, y+z), (120, 125, 127), 2)
+#     elif filter_mode == 'countour':
+#         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+#         ret, thresh = cv2.threshold(gray, 127, 255, cv2.THRESH_BINARY)
+#         contours, hierarchy = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+#         cv2.drawContours(frame, contours, -1, (0,255,0), 3)
         
 
                 
-    window = f'webcam Name : {filter_mode.upper()}'
-    cv2.imshow(window, output)
+#     window = f'webcam Name : {filter_mode.upper()}'
+#     cv2.imshow(window, output)
         
-    key = cv2.waitKey(1)
+#     key = cv2.waitKey(1)
         
-    if key == ord('b'):
-            break
-    elif key == ord('f'):
-            filter_mode = 'face'
-    elif key == ord('n'):
-            filter_mode = 'normal'
-    elif key == ord('s'):
-            filename = f'capture_{datetime.datetime.now().strftime('%Y%m%d_%H%H%S')}'
-            cv2.imwrite(filename, frame)
-    elif key == ord('e'):
-            filter_mode = 'edge'
-    elif key == ord('g'):
-            filter_mode = 'gray'
-#     elif key == ord('c'):
-#             filter_mode = 'countour'
+#     if key == ord('b'):
+#             break
+#     elif key == ord('f'):
+#             filter_mode = 'face'
+#     elif key == ord('n'):
+#             filter_mode = 'normal'
+#     elif key == ord('s'):
+#             filename = f'capture_{datetime.datetime.now().strftime('%Y%m%d_%H%H%S')}.jpg'
+#             cv2.imwrite(filename, frame)
+#             print(f'saved{filename}')
+#     elif key == ord('e'):
+#             filter_mode = 'edge'
+#     elif key == ord('g'):
+#             filter_mode = 'gray'
+# #     elif key == ord('c'):
+# #             filter_mode = 'countour'
             
-cam.release()
-cv2.destroyAllWindows()
+# cam.release()
+# cv2.destroyAllWindows()
 
+# import cv2
+import numpy as np
+
+# cap = cv2.VideoCapture(0)
+
+# while True:
+#     ret, frame = cap.read()
+#     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+
+#     # Red color mask
+#     lower_red = np.array([0, 120, 70])
+#     upper_red = np.array([10, 255, 255])
+#     mask = cv2.inRange(hsv, lower_red, upper_red)
+
+#     contours, _ = cv2.findContours(mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+#     for cnt in contours:
+#         area = cv2.contourArea(cnt)
+#         if area > 500:
+#             x, y, w, h = cv2.boundingRect(cnt)
+#             cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
+
+#     cv2.imshow("Tracking", frame)
+#     if cv2.waitKey(1) & 0xFF == ord('q'):
+#         break
+
+# cap.release()
+# cv2.destroyAllWindows()
+
+cap = cv2.VideoCapture(0)
+ret, frame1 = cap.read()
+ret, frame2 = cap.read()
+
+while True:
+    diff = cv2.absdiff(frame1, frame2)
+    gray = cv2.cvtColor(diff, cv2.COLOR_BGR2GRAY)
+    blur = cv2.GaussianBlur(gray, (5,5), 0)
+    _, thresh = cv2.threshold(blur, 20, 255, cv2.THRESH_BINARY)
+    dilated = cv2.dilate(thresh, None, iterations=3)
+    contours, _ = cv2.findContours(dilated, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+
+    for contour in contours:
+        if cv2.contourArea(contour) < 700:
+            continue
+        x, y, w, h = cv2.boundingRect(contour)
+        cv2.rectangle(frame1, (x,y), (x+w, y+h), (0,255,0), 2)
+
+    cv2.imshow("Motion", frame1)
+    frame1 = frame2
+    ret, frame2 = cap.read()
+    
+
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
+cap.release()
+cv2.destroyAllWindows()
