@@ -9,4 +9,4 @@ frame2 = cam.read()
 
 while True:
     diff = cv2.absdiff(frame1, frame2)
-    
+   
