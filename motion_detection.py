@@ -9,4 +9,4 @@ frame2 = cam.read()
 
 while True:
     diff = cv2.absdiff(frame1, frame2)
-   
+    gray = cv2.cvtColor(diff, cv2.COLOR_BGR2GRAY)
