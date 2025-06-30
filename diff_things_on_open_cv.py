@@ -1,6 +1,6 @@
 import cv2
 import pyttsx3
-import
+import numpy as np
 # img = cv2.imread("image/ada.png")
 # cv2.putText(img, "this is my photo", (50, 250), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 25, 20), 2)
 # # cv2.rectangle(img, (10, 70), (100, 250), (0,0, 255), 2)
