@@ -87,8 +87,7 @@ import numpy as np
 # cam.release()
 # cv2.destroyAllWindows()
 
-# import cv2
-import numpy as np
+
 
 # cap = cv2.VideoCapture(0)
 
@@ -114,7 +113,7 @@ import numpy as np
 
 # cap.release()
 # cv2.destroyAllWindows()
-import pyttsx3
+
 cap = cv2.VideoCapture(0)
 ret, frame1 = cap.read()
 ret, frame2 = cap.read()
@@ -155,7 +154,7 @@ def speak(text):
     engine.runAndWait()
 
 if target_detect:
-    speak("Target detected!")
+    speak("Target detected!") #not working right now coming soon.
     print("Target detected!")
     cap.release()
     
