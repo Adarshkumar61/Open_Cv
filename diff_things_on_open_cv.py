@@ -113,7 +113,7 @@ import numpy as np
 
 # cap.release()
 # cv2.destroyAllWindows()
-
+import pyttsx3
 cap = cv2.VideoCapture(0)
 ret, frame1 = cap.read()
 ret, frame2 = cap.read()
@@ -127,11 +127,18 @@ while True:
     contours, _ = cv2.findContours(dilated, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE) 
 
     for contour in contours:
+        target_detect = False
         if cv2.contourArea(contour) < 700:
             continue
         x, y, w, h = cv2.boundingRect(contour)
         cv2.rectangle(frame1, (x,y), (x+w, y+h), (245,255,0), 2)
-
+        target_detect = True
+    
+    if target_detect:
+        print('Target Detected')
+        cap.release()
+        cv2.destroyAllWindows()
+        exit()
     cv2.imshow("Motion", frame1)
     frame1 = frame2
     ret, frame2 = cap.read()
@@ -139,5 +146,19 @@ while True:
 
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
+
+
+def speak(text):
+    engine = pyttsx3.init()
+    engine.say(text)
+    engine.runAndWait()
+
+if target_detect:
+    speak("Target detected!")
+    print("Target detected!")
+    cap.release()
+    
+    cv2.destroyAllWindows()
+    exit()
 cap.release()
 cv2.destroyAllWindows()
