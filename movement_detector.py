@@ -45,7 +45,9 @@ while True:
     cv2.imshow('foreground mask', fgmask)
     cv2.imshow('optical', flow_vis)
     cv2.imshow('motion', thresh)
-    if cv2.waitKey(1) == ord('b'):
+    
+    key = cv2.waitKey(1) 
+    if key == ord('b'):
         break
 camera.release()
 cv2.destroyAllWindows()

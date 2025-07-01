@@ -12,7 +12,7 @@ while True:
     ret, frame = cam.read()
     if not ret:
         print('frame not captuiring')
-        break
+        break 
     output = frame.copy()
     
     if filter_mode == 'gray':
