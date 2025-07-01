@@ -186,20 +186,20 @@ while True:
     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
     # Define HSV range for red color (adjust if needed)
-    # lower_red = np.array([0, 120, 70])
-    # upper_red = np.array([10, 255, 255])
-    # mask1 = cv2.inRange(hsv, lower_red, upper_red)
+    lower_red = np.array([0, 120, 70])
+    upper_red = np.array([10, 255, 255])
+    mask1 = cv2.inRange(hsv, lower_red, upper_red)
 
-    # lower_red2 = np.array([170, 120, 70])
-    # upper_red2 = np.array([180, 255, 255])
-    # mask2 = cv2.inRange(hsv, lower_red2, upper_red2)
+    lower_red2 = np.array([170, 120, 70])
+    upper_red2 = np.array([180, 255, 255])
+    mask2 = cv2.inRange(hsv, lower_red2, upper_red2)
 
     # Combine both masks
-    # mask = mask1 + mask2
-    lower_blue = np.array([100, 150, 70])
-    upper_blue = np.array([130, 255, 255])
+    mask = mask1 + mask2
+    # lower_blue = np.array([100, 150, 70])
+    # upper_blue = np.array([130, 255, 255])
     # Noise removal
-    mask = cv2.inRange(hsv, lower_blue, upper_blue)
+    # mask = cv2.inRange(hsv, lower_blue, upper_blue)
     mask = cv2.erode(mask, None, iterations=2)
     mask = cv2.dilate(mask, None, iterations=2)
 
