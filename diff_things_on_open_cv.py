@@ -1,6 +1,6 @@
-import cv2
-import pyttsx3
-import numpy as np
+# import cv2
+# import pyttsx3
+# import numpy as np
 # img = cv2.imread("image/ada.png")
 # cv2.putText(img, "this is my photo", (50, 250), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 25, 20), 2)
 # # cv2.rectangle(img, (10, 70), (100, 250), (0,0, 255), 2)
@@ -114,51 +114,135 @@ import numpy as np
 # cap.release()
 # cv2.destroyAllWindows()
 
+
+ # Motion Detection Project:
+
+# cap = cv2.VideoCapture(0)
+# ret, frame1 = cap.read()
+# ret, frame2 = cap.read()
+
+# while True: 
+#     diff = cv2.absdiff(frame1, frame2)
+#     gray = cv2.cvtColor(diff, cv2.COLOR_BGR2GRAY)
+#     blur = cv2.GaussianBlur(gray, (5,5), 0)
+#     _, thresh = cv2.threshold(blur, 20, 255, cv2.THRESH_BINARY) 
+#     dilated = cv2.dilate(thresh, None, iterations=3)
+#     contours, _ = cv2.findContours(dilated, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE) 
+
+#     for contour in contours:
+#         target_detect = False
+#         if cv2.contourArea(contour) < 700:
+#             continue
+#         x, y, w, h = cv2.boundingRect(contour)
+#         cv2.rectangle(frame1, (x,y), (x+w, y+h), (245,255,0), 2)
+#         target_detect = True
+    
+#     if target_detect:
+#         print('Target Detected')
+#         cap.release()
+#         cv2.destroyAllWindows()
+#         exit()
+#     cv2.imshow("Motion", frame1)
+#     frame1 = frame2
+#     ret, frame2 = cap.read()
+    
+
+#     if cv2.waitKey(1) & 0xFF == ord('q'):
+#         break
+
+
+# def speak(text):
+#     engine = pyttsx3.init()
+#     engine.say(text)
+#     engine.runAndWait()
+
+# if target_detect:
+#     speak("Target detected!") #not working right now coming soon.
+#     print("Target detected!")
+#     cap.release()
+    
+#     cv2.destroyAllWindows()
+#     exit()
+# cap.release()
+# cv2.destroyAllWindows()
+
+
+
+import cv2
+import numpy as np
+
+# Start the webcam
 cap = cv2.VideoCapture(0)
-ret, frame1 = cap.read()
-ret, frame2 = cap.read()
 
-while True: 
-    diff = cv2.absdiff(frame1, frame2)
-    gray = cv2.cvtColor(diff, cv2.COLOR_BGR2GRAY)
-    blur = cv2.GaussianBlur(gray, (5,5), 0)
-    _, thresh = cv2.threshold(blur, 20, 255, cv2.THRESH_BINARY) 
-    dilated = cv2.dilate(thresh, None, iterations=3)
-    contours, _ = cv2.findContours(dilated, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE) 
+while True:
+    ret, frame = cap.read()
+    if not ret:
+        break
 
-    for contour in contours:
-        target_detect = False
-        if cv2.contourArea(contour) < 700:
-            continue
-        x, y, w, h = cv2.boundingRect(contour)
-        cv2.rectangle(frame1, (x,y), (x+w, y+h), (245,255,0), 2)
-        target_detect = True
-    
-    if target_detect:
-        print('Target Detected')
-        cap.release()
-        cv2.destroyAllWindows()
-        exit()
-    cv2.imshow("Motion", frame1)
-    frame1 = frame2
-    ret, frame2 = cap.read()
-    
+    # Flip the frame (optional)
+    frame = cv2.flip(frame, 1)
 
+    # Convert to HSV
+    hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+
+    # Define HSV range for red color (adjust if needed)
+    # lower_red = np.array([0, 120, 70])
+    # upper_red = np.array([10, 255, 255])
+    # mask1 = cv2.inRange(hsv, lower_red, upper_red)
+
+    # lower_red2 = np.array([170, 120, 70])
+    # upper_red2 = np.array([180, 255, 255])
+    # mask2 = cv2.inRange(hsv, lower_red2, upper_red2)
+
+    # Combine both masks
+    # mask = mask1 + mask2
+    lower_blue = np.array([100, 150, 70])
+    upper_blue = np.array([130, 255, 255])
+    # Noise removal
+    mask = cv2.inRange(hsv, lower_blue, upper_blue)
+    mask = cv2.erode(mask, None, iterations=2)
+    mask = cv2.dilate(mask, None, iterations=2)
+
+    # Find contours
+    contours, _ = cv2.findContours(mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+    command = "No Object Detected"
+
+    if contours:
+        largest = max(contours, key=cv2.contourArea)
+        area = cv2.contourArea(largest)
+
+        if area > 500:
+            # Get bounding box
+            x, y, w, h = cv2.boundingRect(largest)
+            cx = x + w // 2
+            cy = y + h // 2
+
+            # Draw rectangle and center
+            cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
+            cv2.circle(frame, (cx, cy), 5, (255, 255, 255), -1)
+
+            # Frame width
+            frame_center = frame.shape[1] // 2
+
+            # Decision logic
+            if cx < frame_center - 50:
+                command = "Move Left"
+            elif cx > frame_center + 50:
+                command = "Move Right"
+            else:
+                command = "Move Forward"
+
+    # Show command on screen
+    cv2.putText(frame, f"Command: {command}", (10, 40),
+                cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
+
+    # Show both windows
+    cv2.imshow("Frame", frame)
+    cv2.imshow("Mask", mask)
+
+    # Exit
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
 
-
-def speak(text):
-    engine = pyttsx3.init()
-    engine.say(text)
-    engine.runAndWait()
-
-if target_detect:
-    speak("Target detected!") #not working right now coming soon.
-    print("Target detected!")
-    cap.release()
-    
-    cv2.destroyAllWindows()
-    exit()
 cap.release()
 cv2.destroyAllWindows()

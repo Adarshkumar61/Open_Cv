@@ -24,7 +24,7 @@ while True:
         movement_detected = True
 
     if movement_detected:
-        print("Target detected!")
+        print("Target detected! Shoot")
         cam.release()
         cv2.destroyAllWindows()
         exit()
