@@ -1,6 +1,6 @@
-# import cv2
-# import pyttsx3
-# import numpy as np
+import cv2
+import pyttsx3
+import numpy as np
 # img = cv2.imread("image/ada.png")
 # cv2.putText(img, "this is my photo", (50, 250), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 25, 20), 2)
 # # cv2.rectangle(img, (10, 70), (100, 250), (0,0, 255), 2)
@@ -167,10 +167,6 @@
 # cv2.destroyAllWindows()
 
 
-
-import cv2
-import numpy as np
-
 # Start the webcam
 cap = cv2.VideoCapture(0)
 
@@ -185,26 +181,27 @@ while True:
     # Convert to HSV
     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
-    lower_red = np.array([0, 120, 70])
-    upper_red = np.array([10, 255, 255])
-    mask1 = cv2.inRange(hsv, lower_red, upper_red)
+    # lower_red = np.array([0, 120, 70])
+    # upper_red = np.array([10, 255, 255])
+    # mask1 = cv2.inRange(hsv, lower_red, upper_red)
 
-    lower_red2 = np.array([170, 120, 70])
-    upper_red2 = np.array([180, 255, 255])
-    mask2 = cv2.inRange(hsv, lower_red2, upper_red2)
+    # lower_red2 = np.array([170, 120, 70])
+    # upper_red2 = np.array([180, 255, 255])
+    # mask2 = cv2.inRange(hsv, lower_red2, upper_red2)
 
     # Combine both masks
-    mask = mask1 + mask2
+    # mask = mask1 + mask2
     
     #another color :
     
-    # lower_blue = np.array([100, 150, 70])
-    # upper_blue = np.array([130, 255, 255])
+    lower_blue = np.array([100, 150, 70])
+    upper_blue = np.array([130, 255, 255])
     
     
-    # Noise removal
-    # mask = cv2.inRange(hsv, lower_blue, upper_blue)
     
+    mask = cv2.inRange(hsv, lower_blue, upper_blue)
+    
+    # Noise removal:
     mask = cv2.erode(mask, None, iterations=2)
     mask = cv2.dilate(mask, None, iterations=2)
 
@@ -251,3 +248,28 @@ while True:
 
 cap.release()
 cv2.destroyAllWindows()
+
+
+# import cv2
+# import numpy as np
+
+# def pick_color(event, x, y, flags, param):
+#     if event == cv2.EVENT_LBUTTONDOWN:
+#         pixel = hsv[y, x]
+#         print(f'HSV: {pixel}')
+
+# cap = cv2.VideoCapture(0)
+
+# while True:
+#     ret, frame = cap.read()
+#     frame = cv2.flip(frame, 1)
+#     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+
+#     cv2.imshow("Frame", frame)
+#     cv2.setMouseCallback("Frame", pick_color)
+
+#     if cv2.waitKey(1) & 0xFF == ord('q'):
+#         break
+
+# cap.release()
+# cv2.destroyAllWindows()
