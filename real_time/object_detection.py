@@ -56,7 +56,7 @@ while True:
     cv2.imshow("Frame", frame)
     cv2.imshow("Mask", mask)
 
-    if key == ord('q'):
+    if cv2.waitKey(1) == ord('q'):
         break
 
 cam.release()
