@@ -32,6 +32,9 @@ def pick_color(event, x, y, flags, param):
 cam = cv2.VideoCapture(0)
 while True:
     ret, frame = cam.read()
+    if not ret:
+        print('frame not capturing..')
+        break
     frame = cv2.flip(frame, 1)
     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
     cv2.imshow('cam', frame)
