@@ -17,36 +17,6 @@ while True:
     upper_blue = np.array([130, 255, 255])
 
     mask = cv2.inRange(hsv, lower_blue, upper_blue)
-    # Set color detection based on key press
-    if 'color' not in globals():
-        color = 'blue'
-
-    key = cv2.waitKey(1) & 0xFF
-    if key == ord('r'):
-        color = 'red'
-    elif key == ord('k'):
-        color = 'black'
-    elif key == ord('b'):
-        color = 'blue'
-    # elif key == ord('n'):
-    #     cam.read()
-
-    if color == 'red':
-        lower1 = np.array([0, 120, 70])
-        upper1 = np.array([10, 255, 255])
-        lower2 = np.array([170, 120, 70])
-        upper2 = np.array([180, 255, 255])
-        mask1 = cv2.inRange(hsv, lower1, upper1)
-        mask2 = cv2.inRange(hsv, lower2, upper2)
-        mask = mask1 | mask2
-    elif color == 'black':
-        lower = np.array([0, 0, 0])
-        upper = np.array([180, 255, 30])
-        mask = cv2.inRange(hsv, lower, upper)
-    else:
-        lower = np.array([100, 140, 70])
-        upper = np.array([130, 255, 255])
-        mask = cv2.inRange(hsv, lower, upper)
 
     # Noise removal:
     mask = cv2.erode(mask, None, iterations=2)
