@@ -168,86 +168,86 @@ import numpy as np
 
 
 # Start the webcam
-cap = cv2.VideoCapture(0)
+# cap = cv2.VideoCapture(0)
 
-while True:
-    ret, frame = cap.read()
-    if not ret:
-        break
+# while True:
+#     ret, frame = cap.read()
+#     if not ret:
+#         break
 
-    # Flip the frame (optional)
-    frame = cv2.flip(frame, 1)
+#     # Flip the frame (optional)
+#     frame = cv2.flip(frame, 1)
 
-    # Convert to HSV
-    hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+#     # Convert to HSV
+#     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
-    # lower_red = np.array([0, 120, 70])
-    # upper_red = np.array([10, 255, 255])
-    # mask1 = cv2.inRange(hsv, lower_red, upper_red)
+#     # lower_red = np.array([0, 120, 70])
+#     # upper_red = np.array([10, 255, 255])
+#     # mask1 = cv2.inRange(hsv, lower_red, upper_red)
 
-    # lower_red2 = np.array([170, 120, 70])
-    # upper_red2 = np.array([180, 255, 255])
-    # mask2 = cv2.inRange(hsv, lower_red2, upper_red2)
+#     # lower_red2 = np.array([170, 120, 70])
+#     # upper_red2 = np.array([180, 255, 255])
+#     # mask2 = cv2.inRange(hsv, lower_red2, upper_red2)
 
-    # Combine both masks
-    # mask = mask1 + mask2
+#     # Combine both masks
+#     # mask = mask1 + mask2
     
-    #another color :
+#     #another color :
     
-    lower_blue = np.array([100, 150, 70])
-    upper_blue = np.array([130, 255, 255])
+#     lower_blue = np.array([100, 150, 70])
+#     upper_blue = np.array([130, 255, 255])
     
     
     
-    mask = cv2.inRange(hsv, lower_blue, upper_blue)
+#     mask = cv2.inRange(hsv, lower_blue, upper_blue)
     
-    # Noise removal:
-    mask = cv2.erode(mask, None, iterations=2)
-    mask = cv2.dilate(mask, None, iterations=2)
+#     # Noise removal:
+#     mask = cv2.erode(mask, None, iterations=2)
+#     mask = cv2.dilate(mask, None, iterations=2)
 
-    # Find contours
-    contours, _ = cv2.findContours(mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
-    command = "No Object Detected"
+#     # Find contours
+#     contours, _ = cv2.findContours(mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+#     command = "No Object Detected"
 
-    if contours:
-        largest = max(contours, key=cv2.contourArea)
-        area = cv2.contourArea(largest)
+#     if contours:
+#         largest = max(contours, key=cv2.contourArea)
+#         area = cv2.contourArea(largest)
 
-        if area > 500:
-            # Get bounding box
-            x, y, w, h = cv2.boundingRect(largest)
-            cx = x + w // 2
-            cy = y + h // 2
+#         if area > 500:
+#             # Get bounding box
+#             x, y, w, h = cv2.boundingRect(largest)
+#             cx = x + w // 2
+#             cy = y + h // 2
 
-            # Draw rectangle and center
-            cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
-            cv2.circle(frame, (cx, cy), 5, (255, 255, 255), -1)
+#             # Draw rectangle and center
+#             cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
+#             cv2.circle(frame, (cx, cy), 5, (255, 255, 255), -1)
 
-            # Frame width
-            frame_center = frame.shape[1] // 2
+#             # Frame width
+#             frame_center = frame.shape[1] // 2
 
-            # Decision logic
-            if cx < frame_center - 50:
-                command = "Move Left"
-            elif cx > frame_center + 50:
-                command = "Move Right"
-            else:
-                command = "Move Forward"
+#             # Decision logic
+#             if cx < frame_center - 50:
+#                 command = "Move Left"
+#             elif cx > frame_center + 50:
+#                 command = "Move Right"
+#             else:
+#                 command = "Move Forward"
 
-    # Show command on screen
-    cv2.putText(frame, f"Command: {command}", (10, 40),
-                cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
+#     # Show command on screen
+#     cv2.putText(frame, f"Command: {command}", (10, 40),
+#                 cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
 
-    # Show both windows
-    cv2.imshow("Frame", frame)
-    cv2.imshow("Mask", mask)
+#     # Show both windows
+#     cv2.imshow("Frame", frame)
+#     cv2.imshow("Mask", mask)
 
-    # Exit
-    if cv2.waitKey(1) & 0xFF == ord('q'):
-        break
+#     # Exit
+#     if cv2.waitKey(1) & 0xFF == ord('q'):
+#         break
 
-cap.release()
-cv2.destroyAllWindows()
+# cap.release()
+# cv2.destroyAllWindows()
 
 
 # import cv2
@@ -273,3 +273,38 @@ cv2.destroyAllWindows()
 
 # cap.release()
 # cv2.destroyAllWindows()
+
+import torch
+import cv2
+import numpy as np
+
+
+model = torch.hub.load('ultralytics/yolov5', 'yolov5s')  # Use small YOLOv5
+# this downloads the yolo5 model version from ultralystic from Github.
+cap = cv2.VideoCapture(0)
+
+while True:
+    ret, frame = cap.read()
+    if not ret:
+        break
+
+    results = model(frame)
+    # sends current frame to yolo5 model
+    # detect object like human cat dog, bottle, bikes etc..
+    labels = results.pandas().xyxy[0]['name'].tolist()
+    # results.pandas() converts all of that into a Pandas DataFrame 
+    # extract the detected class names from result
+    # xyxy[0]  Means bounding Boxes in (x1, y1, x2, y2) format
+    # 'name' gives the deteceted class name
+    # tolist() converts them into a regular python list
+    # Display results
+    annotated_frame = np.squeeze(results.render())
+    # np.squueze removes the unwanted dimensions 
+    #  results.render() draws the bounding boxes + labels on the frame
+    cv2.imshow('YOLOv5 Detection', annotated_frame)
+
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
+
+cap.release()
+cv2.destroyAllWindows()

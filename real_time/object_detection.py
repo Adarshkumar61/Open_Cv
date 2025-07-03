@@ -51,7 +51,6 @@ while True:
             else:
                 command = 'move forward'
 
-    # implementing the logic
     cv2.putText(frame, f'Command: {command}', (10, 40), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
     cv2.imshow("Frame", frame)
     cv2.imshow("Mask", mask)
