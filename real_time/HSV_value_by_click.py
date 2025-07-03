@@ -1,23 +1,47 @@
-import cv2
-import numpy as np
+# import cv2
+# import numpy as np
 
+# def pick_color(event, x, y, flags, param):
+#     if event == cv2.EVENT_LBUTTONDOWN:
+#         pixel = hsv[y, x]
+#         print(f'HSV: {pixel}')
+
+# cap = cv2.VideoCapture(0)
+
+# while True:
+#     ret, frame = cap.read()
+#     frame = cv2.flip(frame, 1)
+#     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+
+#     cv2.imshow("Frame", frame)
+#     cv2.setMouseCallback("Frame", pick_color)
+
+#     if cv2.waitKey(1) & 0xFF == ord('q'):
+#         break
+
+# cap.release()
+# cv2.destroyAllWindows()
+
+
+import cv2
 def pick_color(event, x, y, flags, param):
     if event == cv2.EVENT_LBUTTONDOWN:
-        pixel = hsv[y, x]
-        print(f'HSV: {pixel}')
+        pixel = hsv[y , x]
+        print(f'HSV:{pixel}')
 
-cap = cv2.VideoCapture(0)
-
+cam = cv2.VideoCapture(0)
 while True:
-    ret, frame = cap.read()
+    ret, frame = cam.read()
     frame = cv2.flip(frame, 1)
     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
-
-    cv2.imshow("Frame", frame)
-    cv2.setMouseCallback("Frame", pick_color)
-
-    if cv2.waitKey(1) & 0xFF == ord('q'):
+    cv2.imshow('cam', frame)
+    cv2.setMouseCallback('cam', pick_color)
+    
+    if cv2.waitKey(1) == ord('b'):
         break
 
-cap.release()
+cam.release()
 cv2.destroyAllWindows()
+    
+   
+    
