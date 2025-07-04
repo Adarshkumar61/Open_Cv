@@ -3,6 +3,7 @@ import numpy as np
 import datetime
 import pyttsx3
 cam = cv2.VideoCapture(0)
+import time
 
 ret, frame1 = cam.read()
 ret, frame2 = cam.read()
@@ -45,6 +46,7 @@ while True:
 
     if movement_detected:
         print("Target detected! Shoot")
+       
         cam.release()
         cv2.destroyAllWindows()
         exit()
