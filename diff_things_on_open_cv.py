@@ -287,8 +287,8 @@ while True:
     ret, frame = cap.read()
     if not ret:
         break
-
-    results = model(frame)
+    rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+    results = model(rgb)
     # sends current frame to yolo5 model
     # detect object like human cat dog, bottle, bikes etc..
     labels = results.pandas().xyxy[0]['name'].tolist()
