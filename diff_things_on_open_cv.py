@@ -274,37 +274,37 @@ import numpy as np
 # cap.release()
 # cv2.destroyAllWindows()
 
-import torch
-import cv2
-import numpy as np
+# import torch
+# import cv2
+# import numpy as np
 
 
-model = torch.hub.load('ultralytics/yolov5', 'yolov5s')  # Use small YOLOv5
-# this downloads the yolo5 model version from ultralystic from Github.
-cap = cv2.VideoCapture(0)
+# model = torch.hub.load('ultralytics/yolov5', 'yolov5s')  # Use small YOLOv5
+# # this downloads the yolo5 model version from ultralystic from Github.
+# cap = cv2.VideoCapture(0)
 
-while True:
-    ret, frame = cap.read()
-    if not ret:
-        break
-    rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-    results = model(rgb)
-    # sends current frame to yolo5 model
-    # detect object like human cat dog, bottle, bikes etc..
-    labels = results.pandas().xyxy[0]['name'].tolist()
-    # results.pandas() converts all of that into a Pandas DataFrame 
-    # extract the detected class names from result
-    # xyxy[0]  Means bounding Boxes in (x1, y1, x2, y2) format
-    # 'name' gives the deteceted class name
-    # tolist() converts them into a regular python list
-    # Display results
-    annotated_frame = np.squeeze(results.render())
-    # np.squueze removes the unwanted dimensions 
-    #  results.render() draws the bounding boxes + labels on the frame
-    cv2.imshow('YOLOv5 Detection', annotated_frame)
+# while True:
+#     ret, frame = cap.read()
+#     if not ret:
+#         break
+#     rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+#     results = model(rgb)
+#     # sends current frame to yolo5 model
+#     # detect object like human cat dog, bottle, bikes etc..
+#     labels = results.pandas().xyxy[0]['name'].tolist()
+#     # results.pandas() converts all of that into a Pandas DataFrame 
+#     # extract the detected class names from result
+#     # xyxy[0]  Means bounding Boxes in (x1, y1, x2, y2) format
+#     # 'name' gives the deteceted class name
+#     # tolist() converts them into a regular python list
+#     # Display results
+#     annotated_frame = np.squeeze(results.render())
+#     # np.squueze removes the unwanted dimensions 
+#     #  results.render() draws the bounding boxes + labels on the frame
+#     cv2.imshow('YOLOv5 Detection', annotated_frame)
 
-    if cv2.waitKey(1) & 0xFF == ord('q'):
-        break
+#     if cv2.waitKey(1) & 0xFF == ord('q'):
+#         break
 
-cap.release()
-cv2.destroyAllWindows()
+# cap.release()
+# cv2.destroyAllWindows()
