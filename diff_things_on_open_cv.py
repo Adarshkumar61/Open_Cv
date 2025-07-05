@@ -317,7 +317,7 @@ cam= cv2.VideoCapture(0)
 while True:
     
    ret, frame = cam.read()
-   gray = cv2.cvtColor(frame,cv.COLOR_BGR2GRAY)
+   gray = cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY)
  
    gray = np.float32(gray)
    dst = cv2.cornerHarris(gray,2,3,0.04)
