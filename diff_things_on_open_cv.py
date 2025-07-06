@@ -170,10 +170,10 @@ import datetime
 
 
 # Start the webcam
-# cap = cv2.VideoCapture(0)
+# cam = cv2.VideoCapture(0)
 
 # while True:
-#     ret, frame = cap.read()
+#     ret, frame = cam.read()
 #     if not ret:
 #         break
 
@@ -183,25 +183,25 @@ import datetime
 #     # Convert to HSV
 #     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
-#     # lower_red = np.array([0, 120, 70])
-#     # upper_red = np.array([10, 255, 255])
-#     # mask1 = cv2.inRange(hsv, lower_red, upper_red)
+#     lower_red = np.array([0, 120, 70])
+#     upper_red = np.array([10, 255, 255])
+#     mask1 = cv2.inRange(hsv, lower_red, upper_red)
 
-#     # lower_red2 = np.array([170, 120, 70])
-#     # upper_red2 = np.array([180, 255, 255])
-#     # mask2 = cv2.inRange(hsv, lower_red2, upper_red2)
+#     lower_red2 = np.array([170, 120, 70])
+#     upper_red2 = np.array([180, 255, 255])
+#     mask2 = cv2.inRange(hsv, lower_red2, upper_red2)
 
 #     # Combine both masks
-#     # mask = mask1 + mask2
+#     mask = mask1 + mask2
     
 #     #another color :
     
-#     lower_blue = np.array([100, 150, 70])
-#     upper_blue = np.array([130, 255, 255])
+#     # lower_blue = np.array([100, 150, 70])
+#     # upper_blue = np.array([130, 255, 255])
     
     
     
-#     mask = cv2.inRange(hsv, lower_blue, upper_blue)
+#     # mask = cv2.inRange(hsv, lower_blue, upper_blue)
     
 #     # Noise removal:
 #     mask = cv2.erode(mask, None, iterations=2)
@@ -209,6 +209,7 @@ import datetime
 
 #     # Find contours
 #     contours, _ = cv2.findContours(mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+#     m_detect = False
 #     command = "No Object Detected"
 
 #     if contours:
@@ -224,21 +225,13 @@ import datetime
 #             # Draw rectangle and center
 #             cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
 #             cv2.circle(frame, (cx, cy), 5, (255, 255, 255), -1)
-
-#             # Frame width
-#             frame_center = frame.shape[1] // 2
-
-#             # Decision logic
-#             if cx < frame_center - 50:
-#                 command = "Move Left"
-#             elif cx > frame_center + 50:
-#                 command = "Move Right"
-#             else:
-#                 command = "Move Forward"
-
-#     # Show command on screen
+#             m_detect = True
+#             if m_detect:
+#                 # print('red object detected')
+#                 command = 'red color object detected'
 #     cv2.putText(frame, f"Command: {command}", (10, 40),
-#                 cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
+#             cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
+#     # time.sleep(1)
 
 #     # Show both windows
 #     cv2.imshow("Frame", frame)
@@ -248,8 +241,9 @@ import datetime
 #     if cv2.waitKey(1) & 0xFF == ord('q'):
 #         break
 
-# cap.release()
+# cam.release()
 # cv2.destroyAllWindows()
+
 
 
 # import cv2
@@ -313,28 +307,28 @@ import datetime
 
 
 
-cam= cv2.VideoCapture(0)
-while True:
+# cam= cv2.VideoCapture(0)
+# while True:
     
-   ret, frame = cam.read()
-   gray = cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY)
+#    ret, frame = cam.read()
+#    gray = cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY)
  
-   gray = np.float32(gray)
-   dst = cv2.cornerHarris(gray,2,3,0.04)
+#    gray = np.float32(gray)
+#    dst = cv2.cornerHarris(gray,2,3,0.04)
  
-#result is dilated for marking the corners, not important
-   dst = cv2.dilate(dst,None)
+# #result is dilated for marking the corners, not important
+#    dst = cv2.dilate(dst,None)
  
-# Threshold for an optimal value, it may vary depending on the image.
-   frame[dst>0.01*dst.max()]=[0,0,255]
+# # Threshold for an optimal value, it may vary depending on the image.
+#    frame[dst>0.01*dst.max()]=[0,0,255]
  
-   cv2.imshow('dst',frame)
+#    cv2.imshow('dst',frame)
 
-   if cv2.waitKey(1) & 0xff == ord('q'):
-       break
+#    if cv2.waitKey(1) & 0xff == ord('q'):
+#        break
    
-cam.release()
-cv2.destroyAllWindows()
+# cam.release()
+# cv2.destroyAllWindows()
 
 
 # import numpy as np
