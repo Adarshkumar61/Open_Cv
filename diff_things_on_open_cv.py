@@ -1,8 +1,8 @@
-import cv2
-import pyttsx3
-import numpy as np
-import time
-import datetime
+# import cv2
+# import pyttsx3
+# import numpy as np
+# import time
+# import datetime
 # img = cv2.imread("image/ada.png")
 # cv2.putText(img, "this is my photo", (50, 250), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 25, 20), 2)
 # # cv2.rectangle(img, (10, 70), (100, 250), (0,0, 255), 2)
@@ -286,7 +286,9 @@ import datetime
 #     rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 #     results = model(rgb)
 #     # sends current frame to yolo5 model
+
 #     # detect object like human cat dog, bottle, bikes etc..
+
 #     labels = results.pandas().xyxy[0]['name'].tolist()
 #     # results.pandas() converts all of that into a Pandas DataFrame 
 #     # extract the detected class names from result
@@ -371,3 +373,35 @@ import datetime
 
 import cv2
 import numpy as np
+import torch as t
+
+model = t.hub.load('ultralytics/yolov5', 'yolov5s')
+cam = cv2.VideoCapture(0)
+while True:
+    ret, frame = cam.read()
+    if not ret:
+        print('frame not caturing')
+        break
+    result = model(frame)
+    
+    detection = result.pandas().xyxy[0]
+    labels = detection['name'].tolist()
+    
+    # logic:
+    action = 'No Action'
+    if 'person' in labels:
+        action = 'move forward'
+    elif 'dog' in labels:
+        action = 'move back'
+    elif 'bottle':
+        action = 'stop'
+    
+    result = np.squeeze(result.render())
+    cv2.putText(result, f'Action{action}', (10,40), cv2.FONT_HERSHEY_COMPLEX, 1,  (0, 255, 255), 2)
+    cv2.imshow('frame', result)
+    
+    key = cv2.waitKey(1) & 0xFF
+    if key == ord('b'):
+        break
+cam.release()
+cv2.destroyAllWindows()
