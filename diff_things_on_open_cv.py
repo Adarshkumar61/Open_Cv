@@ -380,7 +380,7 @@ cam = cv2.VideoCapture(0)
 while True:
     ret, frame = cam.read()
     if not ret:
-        print('frame not caturing')
+        print('frame not caturing') 
         break
     result = model(frame)
     
