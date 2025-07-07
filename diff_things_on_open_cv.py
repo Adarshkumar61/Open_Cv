@@ -394,7 +394,7 @@ while True:
     elif 'dog' in labels:
         action = 'move back'
     elif 'bottle':
-        action = 'stop'
+        action = 'stop' 
     
     result = np.squeeze(result.render())
     cv2.putText(result, f'Action{action}', (10,40), cv2.FONT_HERSHEY_COMPLEX, 1,  (0, 255, 255), 2)
