@@ -384,7 +384,7 @@ while True:
         break
     result = model(frame)
     
-    detection = result.pandas().xyxy[0]
+    detection = result.pandas().xyxy[0] 
     labels = detection['name'].tolist()
     
     # logic:
