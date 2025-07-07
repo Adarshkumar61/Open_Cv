@@ -388,7 +388,7 @@ while True:
     labels = detection['name'].tolist()
     
     # logic:
-    action = 'No Action'
+    action = 'No Action' 
     if 'person' in labels:
         action = 'move forward'
     elif 'dog' in labels:
