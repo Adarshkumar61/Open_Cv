@@ -371,37 +371,142 @@
 
 
 
+# import cv2
+# import numpy as np
+# import torch as t
+
+# model = t.hub.load('ultralytics/yolov5', 'yolov5s')
+# cam = cv2.VideoCapture(0)
+# while True:
+#     ret, frame = cam.read()
+#     if not ret:
+#         print('frame not caturing') 
+#         break
+#     result = model(frame)
+    
+#     detection = result.pandas().xyxy[0] 
+#     labels = detection['name'].tolist()
+    
+#     # logic:
+#     action = 'No Action' 
+#     if 'person' in labels:
+#         action = 'move forward'
+#     elif 'dog' in labels:
+#         action = 'move back'
+#     elif 'bottle':
+#         action = 'stop' 
+    
+#     result = np.squeeze(result.render())
+#     cv2.putText(result, f'Action{action}', (10,40), cv2.FONT_HERSHEY_COMPLEX, 1,  (0, 255, 255), 2)
+#     cv2.imshow('frame', result)
+    
+#     key = cv2.waitKey(1) & 0xFF
+#     if key == ord('b'):
+#         break
+# cam.release()
+# cv2.destroyAllWindows()
+
+
 import cv2
 import numpy as np
-import torch as t
+import math
+cap = cv2.VideoCapture(0)
 
-model = t.hub.load('ultralytics/yolov5', 'yolov5s')
-cam = cv2.VideoCapture(0)
 while True:
-    ret, frame = cam.read()
+    ret, frame = cap.read()
     if not ret:
-        print('frame not caturing') 
         break
-    result = model(frame)
-    
-    detection = result.pandas().xyxy[0] 
-    labels = detection['name'].tolist()
-    
-    # logic:
-    action = 'No Action' 
-    if 'person' in labels:
-        action = 'move forward'
-    elif 'dog' in labels:
-        action = 'move back'
-    elif 'bottle':
-        action = 'stop' 
-    
-    result = np.squeeze(result.render())
-    cv2.putText(result, f'Action{action}', (10,40), cv2.FONT_HERSHEY_COMPLEX, 1,  (0, 255, 255), 2)
-    cv2.imshow('frame', result)
-    
-    key = cv2.waitKey(1) & 0xFF
-    if key == ord('b'):
+
+    # Convert to grayscale and apply edge detection
+    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    blur = cv2.GaussianBlur(gray, (5, 5), 1)
+    edges = cv2.Canny(blur, 50, 150)
+
+    # Find contours
+    contours, _ = cv2.findContours(edges, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+
+    for cnt in contours:
+        area = cv2.contourArea(cnt)
+        if area > 400:
+            
+            # Approximate shape
+            perimeter = cv2.arcLength(cnt, True)
+            approx = cv2.approxPolyDP(cnt, 0.04 * perimeter, True)
+            x, y, w, h = cv2.boundingRect(approx)
+
+            shape = "Unknown"
+            sides = len(approx)
+            if perimeter == 0:
+                continue
+            circular = 4 * math.pi * (area/(perimeter * perimeter))
+
+            if sides == 3:
+                shape = "Triangle"
+            elif sides == 4:
+                aspectRatio = float(w) / h
+                shape = "Square" if 0.95 < aspectRatio < 1.05 else "Rectangle"
+            elif circular > 0.75:
+                shape = "Circle"
+
+            cv2.drawContours(frame, [approx], 0, (0, 255, 0), 2)
+            cv2.putText(frame, shape, (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 255), 2)
+
+    cv2.imshow("Shape Detection", frame)
+
+    if cv2.waitKey(1) & 0xFF == ord('q'):
         break
-cam.release()
+
+cap.release()
 cv2.destroyAllWindows()
+
+
+
+# import torch
+# import torchvision.transforms as T
+# from torchvision.models.segmentation import deeplabv3_resnet101
+# import cv2
+# import numpy as np
+# import matplotlib.pyplot as plt
+
+# # Load pretrained DeepLabV3 model
+# model = deeplabv3_resnet101(pretrained=True).eval()
+
+# # Define transforms
+# transform = T.Compose([
+#     T.ToPILImage(),
+#     T.Resize(256),
+#     T.ToTensor(),
+#     T.Normalize(mean=[0.485, 0.456, 0.406],
+#                 std=[0.229, 0.224, 0.225]),
+# ])
+
+# # Open camera
+# cap = cv2.VideoCapture(0)
+
+# # COCO labels
+# LABELS = {15: "person", 2: "car", 0: "background", 21: "cow", 17: "cat", 3: "motorcycle"}
+
+# while True:
+#     ret, frame = cap.read()
+#     if not ret:
+#         break
+
+#     input_tensor = transform(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)).unsqueeze(0)
+#     with torch.no_grad():
+#         output = model(input_tensor)['out'][0]
+#     output_predictions = output.argmax(0).byte().cpu().numpy()
+
+#     # Create color mask for "person"
+#     mask = np.zeros_like(frame)
+#     mask[output_predictions == 15] = [0, 255, 0]  # Green for person
+#     mask[output_predictions == 2] = [0, 0, 255]   # Red for car
+
+#     # Blend mask on frame
+#     result = cv2.addWeighted(frame, 0.7, mask, 0.3, 0)
+
+#     cv2.imshow("Semantic Segmentation", result)
+#     if cv2.waitKey(1) & 0xFF == ord('q'):
+#         break
+
+# cap.release()
+# cv2.destroyAllWindows()
