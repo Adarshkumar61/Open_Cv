@@ -334,25 +334,25 @@
 
 
 # import numpy as np
-# import cv2 as cv
+# import cv2
 
 # filename = 'image/ada.png'
-# img = cv.imread(filename)
-# gray = cv.cvtColor(img,cv.COLOR_BGR2GRAY)
+# img = cv2.imread(filename)
+# gray = cv2.cv2tColor(img,cv2.COLOR_BGR2GRAY)
 
 # # find Harris corners
 # gray = np.float32(gray)
-# dst = cv.cornerHarris(gray,2,3,0.04)
-# dst = cv.dilate(dst,None)
-# ret, dst = cv.threshold(dst,0.01*dst.max(),255,0)
+# dst = cv2.cornerHarris(gray,2,3,0.04)
+# dst = cv2.dilate(dst,None)
+# ret, dst = cv2.threshold(dst,0.01*dst.max(),255,0)
 # dst = np.uint8(dst)
 
 # # find centroids
-# ret, labels, stats, centroids = cv.connectedComponentsWithStats(dst)
+# ret, labels, stats, centroids = cv2.connectedComponentsWithStats(dst)
 
 # # define the criteria to stop and refine the corners
-# criteria = (cv.TERM_CRITERIA_EPS + cv.TERM_CRITERIA_MAX_ITER, 100, 0.001)
-# corners = cv.cornerSubPix(gray,np.float32(centroids),(5,5),(-1,-1),criteria)
+# criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 100, 0.001)
+# corners = cv2.cornerSubPix(gray,np.float32(centroids),(5,5),(-1,-1),criteria)
 
 # # Now draw them
 
@@ -360,14 +360,14 @@
 # res = np.hstack((centroids, corners))
 # res = np.round(res).astype(np.intp)
 # for i in range(res.shape[0]):
-#     cv.circle(img, (res[i, 0], res[i, 1]), 5, (0, 0, 255), 1)
-#     cv.circle(img, (res[i, 2], res[i, 3]), 5, (0, 255, 0), 1)
-# cv.imwrite('subpixel5.png', img)
+#     cv2.circle(img, (res[i, 0], res[i, 1]), 5, (0, 0, 255), 1)
+#     cv2.circle(img, (res[i, 2], res[i, 3]), 5, (0, 255, 0), 1)
+# cv2.imwrite('subpixel5.png', img)
 
 # # Display the result
-# cv.imshow('Subpixel Corners', img)
-# cv.waitKey(0)
-# cv.destroyAllWindows()
+# cv2.imshow('Subpixel Corners', img)
+# cv2.waitKey(0)
+# cv2.destroyAllWindows()
 
 
 
