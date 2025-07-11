@@ -5,10 +5,10 @@ import cv2 as cv
 # cv.waitKey(0)
 # cv.destroyAllWindows()
 # OR
-image = cv.imread('c:\Users\adars\Pictures\robo.jpg') 
-# explanation: 
+image = cv.imread('c:\Users\adars\Pictures\robo.jpg')
+# explanation:
 # there are many ways to display imagee
-
+# 1. backslash: use backslash n place of every forward slash
 cv.imshow('img', image)
 cv.waitKey(0)
 cv.destroyAllWindows()
