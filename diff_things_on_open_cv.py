@@ -510,3 +510,35 @@
 
 # cap.release()
 # cv2.destroyAllWindows()
+
+# import cv2
+# while True:
+#     img = 'image/ada.png'
+#     cv = cv2.imread(img)
+#     resized = cv2.resize(cv, (1000, 1000))
+#     cv2.imshow('img', resized)
+#     cv2.imwrite('adarsh_in_prem_mandir.jpg', resized)
+#     if cv2.waitKey(0) == ord('b'):
+#         break
+# cv2.destroyAllWindows()
+
+# # save = 
+# load image:
+# import cv2
+
+# img = cv2.imread('image/ball.jpg')
+# cv2.imshow("Image", img)
+# cv2.imwrite("saved_imageee.jpg", img)
+# cv2.waitKey(0)
+# cv2.destroyAllWindows()
+import cv2
+
+img = cv2.imread('image/ball.jpg')  # make sure this image is in the same folder or use full path
+if img is None:
+    print("Image not loaded. Check the path.")
+else:
+    cv2.imshow("Loaded Image", img)
+    cv2.imwrite("saved_car.jpg", img)
+    print("Image saved as saved_car.jpg")
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
