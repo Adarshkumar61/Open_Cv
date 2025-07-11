@@ -407,57 +407,57 @@
 # cv2.destroyAllWindows()
 
 
-import cv2
-import numpy as np
-import math
-cap = cv2.VideoCapture(0)
+# import cv2
+# import numpy as np
+# import math
+# cap = cv2.VideoCapture(0)
 
-while True:
-    ret, frame = cap.read()
-    if not ret:
-        break
+# while True:
+#     ret, frame = cap.read()
+#     if not ret:
+#         break
 
-    # Convert to grayscale and apply edge detection
-    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-    blur = cv2.GaussianBlur(gray, (5, 5), 1)
-    edges = cv2.Canny(blur, 50, 150)
+#     # Convert to grayscale and apply edge detection
+#     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+#     blur = cv2.GaussianBlur(gray, (5, 5), 1)
+#     edges = cv2.Canny(blur, 50, 150)
 
-    # Find contours
-    contours, _ = cv2.findContours(edges, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+#     # Find contours
+#     contours, _ = cv2.findContours(edges, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
-    for cnt in contours:
-        area = cv2.contourArea(cnt)
-        if area > 400:
+#     for cnt in contours:
+#         area = cv2.contourArea(cnt)
+#         if area > 400:
             
-            # Approximate shape
-            perimeter = cv2.arcLength(cnt, True)
-            approx = cv2.approxPolyDP(cnt, 0.04 * perimeter, True)
-            x, y, w, h = cv2.boundingRect(approx)
+#             # Approximate shape
+#             perimeter = cv2.arcLength(cnt, True)
+#             approx = cv2.approxPolyDP(cnt, 0.04 * perimeter, True)
+#             x, y, w, h = cv2.boundingRect(approx)
 
-            shape = "Unknown"
-            sides = len(approx)
-            if perimeter == 0:
-                continue
-            circular = 4 * math.pi * (area/(perimeter * perimeter))
+#             shape = "Unknown"
+#             sides = len(approx)
+#             if perimeter == 0:
+#                 continue
+#             circular = 4 * math.pi * (area/(perimeter * perimeter))
 
-            if sides == 3:
-                shape = "Triangle"
-            elif sides == 4:
-                aspectRatio = float(w) / h
-                shape = "Square" if 0.95 < aspectRatio < 1.05 else "Rectangle"
-            elif circular > 0.75:
-                shape = "Circle"
+#             if sides == 3:
+#                 shape = "Triangle"
+#             elif sides == 4:
+#                 aspectRatio = float(w) / h
+#                 shape = "Square" if 0.95 < aspectRatio < 1.05 else "Rectangle"
+#             elif circular > 0.75:
+#                 shape = "Circle"
 
-            cv2.drawContours(frame, [approx], 0, (0, 255, 0), 2)
-            cv2.putText(frame, shape, (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 255), 2)
+#             cv2.drawContours(frame, [approx], 0, (0, 255, 0), 2)
+#             cv2.putText(frame, shape, (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 255), 2)
 
-    cv2.imshow("Shape Detection", frame)
+#     cv2.imshow("Shape Detection", frame)
 
-    if cv2.waitKey(1) & 0xFF == ord('q'):
-        break
+#     if cv2.waitKey(1) & 0xFF == ord('q'):
+#         break
 
-cap.release()
-cv2.destroyAllWindows()
+# cap.release()
+# cv2.destroyAllWindows()
 
 
 # will do next time 
