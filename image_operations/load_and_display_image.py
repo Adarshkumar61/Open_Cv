@@ -6,7 +6,7 @@ import cv2 as cv
 # cv.destroyAllWindows()
 # OR
 image = cv.imread('c:\Users\adars\Pictures\robo.jpg')
-# explanation:
+# explanation: 
 # there are many ways to display imagee
 
 cv.imshow('img', image)
