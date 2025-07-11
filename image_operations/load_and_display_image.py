@@ -5,7 +5,7 @@ import cv2 as cv
 # cv.waitKey(0)
 # cv.destroyAllWindows()
 # OR
-image = cv.imread('c:\Users\adars\Pictures\robo.jpg')
+image = cv.imread('c:\Users\adars\Pictures\robo.jpg') 
 # explanation: 
 # there are many ways to display imagee
 
