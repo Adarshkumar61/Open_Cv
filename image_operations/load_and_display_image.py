@@ -10,10 +10,14 @@ image = cv.imread('c:/Users/adars\Pictures/robo.jpg')
 # 3. use a raw string:
 # image = cv.imread(r'c:/Users/adars\Pictures/robo.jpg')
 
+
+# resizing image:
+resized_image = cv.resize(image, (300,300))
 if image is None:
     print('check path of the image'.title())
 else:
     
-    cv.imshow('img', image)
+    # cv.imshow('img', image)
+    cv.imshow('resized', resized_image)
     cv.waitKey(0)
     cv.destroyAllWindows()
