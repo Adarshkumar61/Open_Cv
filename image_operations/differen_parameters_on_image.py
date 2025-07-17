@@ -22,16 +22,16 @@ resized = cv.resize(image, (980, 950))
 # edge = cv.Canny(blur, 50, 150)
 
 
-if image is None:
-    print('check image source')
-else:
-    # cv.imshow('image', image)
-    cv.imshow('resized', resized)
-    # cv.imshow('gray', gray)
-    # cv.imshow('hsv', hsv)
-    # cv.imshow('lab', lab)
-    # cv.imshow('blur', blur)
-    # cv.imshow('thresh', thresh)
-    # cv.imshow('edge', edge)
-    cv.waitKey(0)
-    cv.destroyAllWindows()
+# if image is None:
+#     print('check image source')
+# else:
+#     # cv.imshow('image', image)
+#     cv.imshow('resized', resized)
+#     # cv.imshow('gray', gray)
+#     # cv.imshow('hsv', hsv)
+#     # cv.imshow('lab', lab)
+#     # cv.imshow('blur', blur)
+#     # cv.imshow('thresh', thresh)
+#     # cv.imshow('edge', edge)
+#     cv.waitKey(0)
+#     cv.destroyAllWindows()
