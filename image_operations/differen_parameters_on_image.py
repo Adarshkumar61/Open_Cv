@@ -21,7 +21,6 @@ resized = cv.resize(image, (980, 950))
 #edge detection:
 # edge = cv.Canny(blur, 50, 150)
 
-approx = cv.approxPolyDP(cnt, 0.04 * cv2.arcLength(cnt, True), True)
 
 if image is None:
     print('check image source')
