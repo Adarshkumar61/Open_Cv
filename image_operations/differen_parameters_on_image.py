@@ -35,3 +35,19 @@ resized = cv.resize(image, (980, 950))
 #     # cv.imshow('edge', edge)
 #     cv.waitKey(0)
 #     cv.destroyAllWindows()
+
+import cv2 as cv
+
+face_cascade = cv.CascadeClassifier(cv.data.haarcascades + 'haarcascade_frontalface_default.xml')
+img = cv.imread("adarsh_in_prem_mandir.jpg")
+gray = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
+
+faces = face_cascade.detectMultiScale(gray, 1.3, 5)
+for i, (x, y, w, h) in enumerate(faces):
+    cv.putText(img, f'Face {i+1}', (x, y-10), cv.FONT_HERSHEY_SIMPLEX, 0.9, (255, 0, 0), 2)
+for (x, y, w, h) in faces:
+    cv.rectangle(img, (x, y), (x+w, y+h), (255, 0, 0), 2)
+
+cv.imshow("Detected Face", img)
+cv.waitKey(0)
+cv.destroyAllWindows()
