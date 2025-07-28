@@ -1,6 +1,6 @@
-# import cv2
+import cv2
 # import pyttsx3
-# import numpy as np
+import numpy as np
 # import time
 # import datetime
 # img = cv2.imread("image/ada.png")
@@ -91,30 +91,30 @@
 
 
 
-# cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(0)
 
-# while True:
-#     ret, frame = cap.read()
-#     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+while True:
+    ret, frame = cap.read()
+    hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
-#     # Red color mask 
-#     lower_red = np.array([0, 120, 70])
-#     upper_red = np.array([10, 255, 255])
-#     mask = cv2.inRange(hsv, lower_red, upper_red)
+    # Red color mask 
+    lower_red = np.array([0, 120, 70])
+    upper_red = np.array([10, 255, 255])
+    mask = cv2.inRange(hsv, lower_red, upper_red)
 
-#     contours, _ = cv2.findContours(mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
-#     for cnt in contours:
-#         area = cv2.contourArea(cnt)
-#         if area > 500:
-#             x, y, w, h = cv2.boundingRect(cnt)
-#             cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
+    contours, _ = cv2.findContours(mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+    for cnt in contours:
+        area = cv2.contourArea(cnt)
+        if area > 500:
+            x, y, w, h = cv2.boundingRect(cnt)
+            cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
 
-#     cv2.imshow("Tracking", frame)
-#     if cv2.waitKey(1) & 0xFF == ord('q'):
-#         break
+    cv2.imshow("Tracking", frame)
+    if cv2.waitKey(1) & 0xFF == ord('b'):
+        break
 
-# cap.release()
-# cv2.destroyAllWindows()
+cap.release()
+cv2.destroyAllWindows()
 
 
  # Motion Detection Project:
@@ -531,14 +531,14 @@
 # cv2.imwrite("saved_imageee.jpg", img)
 # cv2.waitKey(0)
 # cv2.destroyAllWindows()
-import cv2
+# import cv2
 
-img = cv2.imread('image/ball.jpg')  # make sure this image is in the same folder or use full path
-if img is None:
-    print("Image not loaded. Check the path.")
-else:
-    cv2.imshow("Loaded Image", img)
-    cv2.imwrite("saved_car.jpg", img)
-    print("Image saved as saved_car.jpg")
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
+# img = cv2.imread('image/ball.jpg')  # make sure this image is in the same folder or use full path
+# if img is None:
+#     print("Image not loaded. Check the path.")
+# else:
+#     cv2.imshow("Loaded Image", img)
+#     cv2.imwrite("saved_car.jpg", img)
+#     print("Image saved as saved_car.jpg")
+#     cv2.waitKey(0)
+#     cv2.destroyAllWindows()
