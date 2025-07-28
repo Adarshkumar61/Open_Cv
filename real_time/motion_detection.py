@@ -1,9 +1,7 @@
 import cv2
-import numpy as np
-import datetime
-import pyttsx3
-cam = cv2.VideoCapture(0)
 import time
+
+cam = cv2.VideoCapture(0)
 
 ret, frame1 = cam.read()
 ret, frame2 = cam.read()
