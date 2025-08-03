@@ -29,4 +29,19 @@ while True:
         cv.circle(final, (face_center, y+h // 2), 5, (0, 255, 0), -2)
         
         # DIRECTION LOGIC:
-       
+        if face_center < frame_center -30:
+            direction = 'Move Left'
+        elif face_center > frame_center +30:
+            direction = 'Move Right'
+        else:
+            direction = 'Move Center'
+        
+        cv.putText(final, f'direction: {direction}', (10, 40), cv.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2)
+        print('direction: ', direction)
+    cv.imshow('final', final)
+        
+    if cv.waitKey(1) == ord('b'):
+        break
+        
+cam.release()
+cv.destroyAllWindows()
