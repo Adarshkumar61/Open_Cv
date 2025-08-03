@@ -16,4 +16,17 @@ while True:
     final = np.squeeze(result.render())
     
     #code for face detection and direction logic implementation:
+    gray = cv.cvtColor(final, cv.COLOR_BGR2GRAY)
+    face = cascade.detectMultiScale(gray, 1.3, 5)
     
+    frame_center = final.shape[1] // 2
+    
+    for (x, y, w, h) in face:
+        cv.rectangle(final, (x, y), (x+w, y+h), (0, 255, 0), 2)
+        
+        face_center = x + w // 2
+        cv.line(final, (frame_center, 0), (frame_center, final.shape[0]), (255, 0, 0), 2)
+        cv.circle(final, (face_center, y+h // 2), 5, (0, 255, 0), -2)
+        
+        # DIRECTION LOGIC:
+       
