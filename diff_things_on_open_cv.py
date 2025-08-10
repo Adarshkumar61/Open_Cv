@@ -591,38 +591,5 @@
 # cam.release()
 # cv.destroyAllWindows()
 
-# import cv2 as cv
 
-# cam = cv.VideoCapture(0)
-
-# ret, frame = cam.read()
-# ret, frame1 = cam.read()
-
-# while True:
-#     diff = cv.absdiff(frame, frame1)
-    
-#     gray = cv.cvtColor(diff, cv.COLOR_BGR2GRAY)
-    
-#     blur = cv.GaussianBlur(gray, (5,5), 0)
-    
-#     _, thresh = cv.threshold(blur, 20, 255, cv.THRESH_BINARY)
-    
-#     dilate = cv.dilate(thresh, None, 3)
-    
-#     contors, _ = cv.findContours(dilate, cv.RETR_TREE, cv.CHAIN_APPROX_SIMPLE)
-    
-#     for contor in contors:
-#         if cv.contourArea(contor) <700:
-#             continue
-#         x, y, w, h = cv.boundingRect(contor)
-#         cv.rectangle(frame1, (x,y), (x+w, y+h), (0, 255, 0), 2)
-#         cv.imshow('fr1', frame)
-#         frame = frame1
-#         ret, frame1 = cam.read()
-        
-#         if cv.waitKey(1) == ord('b'):
-#             break
-        
-#     cam.release()
-#     cv.destroyAllWindows()
 
