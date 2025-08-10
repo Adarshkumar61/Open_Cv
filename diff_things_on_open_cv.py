@@ -591,7 +591,87 @@
 # cam.release()
 # cv.destroyAllWindows()
 
+# import cv2 as cv
 
+# cam = cv.VideoCapture(0)
 
+# ret, frame = cam.read()
+# ret, frame1 = cam.read()
 
+# while True:
+#     diff = cv.absdiff(frame, frame1)
+    
+#     gray = cv.cvtColor(diff, cv.COLOR_BGR2GRAY)
+    
+#     blur = cv.GaussianBlur(gray, (5,5), 0)
+    
+#     _, thresh = cv.threshold(blur, 20, 255, cv.THRESH_BINARY)
+    
+#     dilate = cv.dilate(thresh, None, 3)
+    
+#     contors, _ = cv.findContours(dilate, cv.RETR_TREE, cv.CHAIN_APPROX_SIMPLE)
+    
+#     for contor in contors:
+#         if cv.contourArea(contor) <700:
+#             continue
+#         x, y, w, h = cv.boundingRect(contor)
+#         cv.rectangle(frame1, (x,y), (x+w, y+h), (0, 255, 0), 2)
+#         cv.imshow('fr1', frame)
+#         frame = frame1
+#         ret, frame1 = cam.read()
+        
+#         if cv.waitKey(1) == ord('b'):
+#             break
+        
+#     cam.release()
+#     cv.destroyAllWindows()
 
+import cv2
+import torch
+# Load the Haar Cascade face detector
+face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml")
+model = torch.hub.load('ultralytics/yolov5', 'yolov5s')
+# Start video capture
+cap = cv2.VideoCapture(0)
+
+while True:
+    ret, frame = cap.read()
+    frame = cv2.flip(frame, 1)  # Flip the frame horizontally (mirror effect)
+    
+    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    faces = face_cascade.detectMultiScale(gray, 1.3, 5)
+    
+    center_x_frame = frame.shape[1] // 2
+
+    for (x, y, w, h) in faces:
+        # Draw rectangle on face
+        cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
+
+        # Calculate center of the face
+        face_center_x = x + w // 2
+
+        # Draw center lines
+        cv2.line(frame, (center_x_frame, 0), (center_x_frame, frame.shape[0]), (255, 0, 0), 2)
+        cv2.circle(frame, (face_center_x, y + h // 2), 5, (0, 0, 255), -1)
+
+        # Direction logic
+        if face_center_x < center_x_frame - 30:
+            direction = "LEFT"
+        elif face_center_x > center_x_frame + 30:
+            direction = "RIGHT"
+        else:
+            direction = "CENTER"
+
+        cv2.putText(frame, f"Direction: {direction}", (10, 40), cv2.FONT_HERSHEY_SIMPLEX, 1, (255,255,255), 2)
+        print(f"Face detected. Move: {direction}")
+
+    # Show the video feed
+    cv2.imshow("Face Tracker", frame)
+
+    # Press 'q' to quit
+    if cv2.waitKey(1) & 0xFF == ord('b'):
+        break
+
+# Cleanup
+cap.release()
+cv2.destroyAllWindows()
