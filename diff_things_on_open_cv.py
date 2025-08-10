@@ -1,6 +1,6 @@
-import cv2
+# import cv2
 # import pyttsx3
-import numpy as np
+# import numpy as np
 # import time
 # import datetime
 # img = cv2.imread("image/ada.png")
@@ -91,30 +91,30 @@ import numpy as np
 
 
 
-cap = cv2.VideoCapture(0)
+# cap = cv2.VideoCapture(0)
 
-while True:
-    ret, frame = cap.read()
-    hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+# while True:
+#     ret, frame = cap.read()
+#     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
-    # Red color mask 
-    lower_red = np.array([0, 120, 70])
-    upper_red = np.array([10, 255, 255])
-    mask = cv2.inRange(hsv, lower_red, upper_red)
+#     # Red color mask 
+#     lower_red = np.array([0, 120, 70])
+#     upper_red = np.array([10, 255, 255])
+#     mask = cv2.inRange(hsv, lower_red, upper_red)
 
-    contours, _ = cv2.findContours(mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
-    for cnt in contours:
-        area = cv2.contourArea(cnt)
-        if area > 500:
-            x, y, w, h = cv2.boundingRect(cnt)
-            cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
+#     contours, _ = cv2.findContours(mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+#     for cnt in contours:
+#         area = cv2.contourArea(cnt)
+#         if area > 500:
+#             x, y, w, h = cv2.boundingRect(cnt)
+#             cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
 
-    cv2.imshow("Tracking", frame)
-    if cv2.waitKey(1) & 0xFF == ord('b'):
-        break
+#     cv2.imshow("Tracking", frame)
+#     if cv2.waitKey(1) & 0xFF == ord('b'):
+#         break
 
-cap.release()
-cv2.destroyAllWindows()
+# cap.release()
+# cv2.destroyAllWindows()
 
 
  # Motion Detection Project:
@@ -542,3 +542,87 @@ cv2.destroyAllWindows()
 #     print("Image saved as saved_car.jpg")
 #     cv2.waitKey(0)
 #     cv2.destroyAllWindows()
+
+# import cv2
+# import mediapipe as mp
+
+# # Initialize MediaPipe hand detector
+# mp_hands = mp.solutions.hands
+# hands = mp_hands.Hands(max_num_hands=1)
+# mp_draw = mp.solutions.drawing_utils
+
+# # Open webcam
+# cap = cv2.VideoCapture(0)
+
+# while True:
+#     ret, frame = cap.read()
+#     if not ret:
+#         break
+
+#     frame = cv2.flip(frame, 1)  # Flip image for mirror view
+#     rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+#     results = hands.process(rgb)
+
+#     if results.multi_hand_landmarks:
+#         for handLms in results.multi_hand_landmarks:
+#             mp_draw.draw_landmarks(frame, handLms, mp_hands.HAND_CONNECTIONS)
+
+#     cv2.imshow("Hand Tracking", frame)
+
+#     if cv2.waitKey(1) & 0xFF == ord('q'):
+#         break
+
+# cap.release()
+# cv2.destroyAllWindows()
+
+
+# import cv2 as cv
+
+# cam = cv.VideoCapture(0)
+
+# while True:
+#     ret, frame = cam.read()
+#     if not ret:
+#         print('frame not capturing')
+#         break
+#     cv.imshow('cam',frame)
+#     if cv.waitKey(1) == ord('b'):
+#         break
+# cam.release()
+# cv.destroyAllWindows()
+
+# import cv2 as cv
+
+# cam = cv.VideoCapture(0)
+
+# ret, frame = cam.read()
+# ret, frame1 = cam.read()
+
+# while True:
+#     diff = cv.absdiff(frame, frame1)
+    
+#     gray = cv.cvtColor(diff, cv.COLOR_BGR2GRAY)
+    
+#     blur = cv.GaussianBlur(gray, (5,5), 0)
+    
+#     _, thresh = cv.threshold(blur, 20, 255, cv.THRESH_BINARY)
+    
+#     dilate = cv.dilate(thresh, None, 3)
+    
+#     contors, _ = cv.findContours(dilate, cv.RETR_TREE, cv.CHAIN_APPROX_SIMPLE)
+    
+#     for contor in contors:
+#         if cv.contourArea(contor) <700:
+#             continue
+#         x, y, w, h = cv.boundingRect(contor)
+#         cv.rectangle(frame1, (x,y), (x+w, y+h), (0, 255, 0), 2)
+#         cv.imshow('fr1', frame)
+#         frame = frame1
+#         ret, frame1 = cam.read()
+        
+#         if cv.waitKey(1) == ord('b'):
+#             break
+        
+#     cam.release()
+#     cv.destroyAllWindows()
+
