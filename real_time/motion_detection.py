@@ -44,10 +44,10 @@ while True:
 
     if movement_detected:
         print("Target detected! Shoot")
-        # time.sleep(1)
-        # cam.release()
-        # cv2.destroyAllWindows()
-        # exit()
+        time.sleep(1)
+        cam.release()
+        cv2.destroyAllWindows()
+        exit()
     
     cv2.imshow('camera', frame1)
     frame1 = frame2

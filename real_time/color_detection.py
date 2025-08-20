@@ -32,8 +32,8 @@ while True:
             cv.circle(frame, (cx,cy), 5, (0,0,255), -2)
             o_detcet = True
             if o_detcet:
-                print('red object Detected')
-                command = 'red Object detected'
+                print('blue object Detected')
+                command = 'blue Object detected'
     cv.putText(frame, f'{command}', (10,40), cv.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 250), 2)
     cv.imshow('cam', frame)
     cv.imshow('mask', mask)
