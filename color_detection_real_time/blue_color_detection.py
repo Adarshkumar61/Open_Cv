@@ -9,18 +9,18 @@ while True:
         print('frame is not capturing..')
         break
     frame = cv.flip(frame, 1)
-    hsv = cv.cvtColor(frame, cv.COLOR_BGR2HSV)
+    hsv = cv.cvtColor(frame, cv.COLOR_BGR2HSV) 
     # color :
     blue_lower = np.array([100, 150, 70])
     blue_upper = np.array([130, 255, 255])
-    mask = cv.inRange(hsv, blue_lower, blue_upper)
+    mask = cv.inRange(hsv, blue_lower, blue_upper) 
     
-    mask = cv.erode(mask, None, iterations= 2)
-    mask = cv.dilate(mask, None, iterations= 2)
+    mask = cv.erode(mask, None, iterations= 2) #
+    mask = cv.dilate(mask, None, iterations= 2) # iteration: how many time we want to erode and dilate
    
     contours, _ = cv.findContours(mask, cv.RETR_TREE, cv.CHAIN_APPROX_SIMPLE)
     command = 'no object detected'
-    o_detcet = False
+    o_detcet = False 
     if contours:
         largest = max(contours, key =cv.contourArea)
         area = cv.contourArea(largest)
