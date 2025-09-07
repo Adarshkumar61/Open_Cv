@@ -672,7 +672,7 @@ while True:
     if cv2.waitKey(1) & 0xFF == ord('b'):
         break
 
-# Cleanup
+# Cleanup 
 cap.release()
 cv2.destroyAllWindows()
 
