@@ -1,7 +1,7 @@
 # import cv2
 # import pyttsx3
 # import numpy as np
-# import time
+# import time 
 # import datetime
 # img = cv2.imread("image/ada.png")
 # cv2.putText(img, "this is my photo", (50, 250), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 25, 20), 2)
