@@ -11,6 +11,8 @@ while True:
     frame = cv.flip(frame, 1)
     hsv = cv.cvtColor(frame, cv.COLOR_BGR2HSV) 
     # color :
+    # blue_lower = np.array([0, 0, 0])
+    # blue_upper = np.array([180, 30, 46])
     blue_lower = np.array([100, 150, 70])
     blue_upper = np.array([130, 255, 255])
     mask = cv.inRange(hsv, blue_lower, blue_upper) 
@@ -30,7 +32,7 @@ while True:
             cy = y + h //2
             cv.rectangle(frame, (x, y), (x+w, y+h), (0,255,0), 2)
             cv.circle(frame, (cx,cy), 5, (0,0,255), -2)
-            o_detcet = True
+            o_detcet = False
             if o_detcet:
                 print('blue object Detected')
                 command = 'blue Object detected'
