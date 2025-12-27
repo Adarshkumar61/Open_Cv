@@ -1,3 +1,6 @@
+![GitHub Repo Size](https://img.shields.io/github/repo-size/Adarshkumar61/Open_Cv)
+![Python Version](https://img.shields.io/badge/python-3.8%2B-blue)
+![OpenCV](https://img.shields.io/badge/OpenCV-4.5%2B-brightgreen)
 <h1 align="center" style="color:#00E5FF;">
 👁️ OpenCV – Real-Time Computer Vision Projects
 </h1>
