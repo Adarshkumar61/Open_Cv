@@ -1,207 +1,190 @@
 <h1 align="center" style="color:#00E5FF;">
 👁️ OpenCV – Real-Time Computer Vision Projects
-</h1> 
+</h1>
 
 <p align="center" style="font-size:18px; color:#B0B0B0;">
-Real-Time • Practical • Robotics-Ready Vision Systems
+Python • OpenCV • Real-Time Vision
+</p>
+
+<br>
+
+<p align="center" style="font-size:17px;">
+A <b>well-structured collection of real-time computer vision projects</b> built using
+<b>OpenCV and Python</b>, focused on clarity, execution, and engineering discipline.
+</p>
+
+<p align="center" style="font-size:17px;">
+This repository demonstrates how classical computer vision techniques behave in
+<b>live camera scenarios</b> with a clear separation between
+<b>final modules</b> and <b>experiments</b>.
 </p>
 
 <hr>
 
-<p align="center" style="font-size:17px;">
-A <b>professional collection of real-time computer vision projects</b> built using
-<b>OpenCV and Python</b>, focused on <b>practical implementation, performance awareness, and modular design</b>.
-</p>
+<h2 align="center">🎯 What This Repository Demonstrates</h2>
+
+<br>
 
 <p align="center" style="font-size:17px;">
-This repository demonstrates how classical computer vision algorithms behave in
-<b>real-world scenarios</b> such as live camera feeds, lighting variations, and frame-by-frame processing.
-</p>
-
-<hr>
-
-<h2 align="center">🎯 Project Summary</h2>
-
-<p align="center" style="font-size:17px;">
-This project is designed to build a <b>strong foundation in computer vision</b> by implementing
-<b>core OpenCV techniques</b> in a structured and reusable manner.
-</p>
-
-<p align="center" style="font-size:17px;">
-The long-term vision is to prepare these vision modules for:
-</p>
-
-<p align="center" style="font-size:17px;">
-🤖 Robotics perception systems<br>
-🚗 Autonomous navigation support<br>
-📷 Intelligent camera-based applications<br>
-🧠 AI-powered vision pipelines
+✅ Runnable OpenCV programs<br><br>
+✅ Clear project entry point (<code>main.py</code>)<br><br>
+✅ Clean and reusable vision modules<br><br>
+✅ Experiments separated from final code<br><br>
+✅ Engineering observations and improvements
 </p>
 
 <hr>
 
-<h2 align="center">🧰 Key Features</h2>
+<h2 align="center">🗂️ Project Structure</h2>
 
-<p align="center" style="font-size:17px;">
-<b>🔹 Real-Time Processing</b><br>
-Live webcam-based frame processing with optimized pipelines
-</p>
+<br>
 
-<p align="center" style="font-size:17px;">
-<b>🔹 Modular Code Design</b><br>
-Each vision task is implemented as an independent and reusable module
-</p>
+<pre align="center">
+open_cv/
+│
+├── main.py                 # Entry point
+├── requirements.txt        # Dependencies
+├── README.md               # Documentation
+├── results.md              # Observations & notes
+│
+├── modules/                # Final OpenCV modules
 
-<p align="center" style="font-size:17px;">
-<b>🔹 Classical Vision Algorithms</b><br>
-Implementation of fast and efficient OpenCV-based techniques
-</p>
-
-<p align="center" style="font-size:17px;">
-<b>🔹 Robotics-Ready Architecture</b><br>
-Designed to be extendable for robotics, ROS, and AI-based systems
-</p>
+│   ├── face_detection.py
+│   ├── edge_detection.py
+│   ├── color_detection.py
+│   └── and more..
+│
+├── experiments/            # Learning & trials
+│
+└── demo/                   # Output images / demos
+</pre>
 
 <hr>
 
-<h2 align="center">🚀 Vision Modules Implemented</h2>
+<h2 align="center">🚀 Final Vision Modules</h2>
+
+<br>
 
 <p align="center" style="font-size:17px;">
 <b>👤 Face Detection</b><br>
-Real-time human face detection using Haar Cascade classifiers
+Real-time face detection using Haar Cascade classifiers
 </p>
+
+<br>
 
 <p align="center" style="font-size:17px;">
 <b>🖼️ Edge Detection</b><br>
-Canny edge detection for object boundary extraction
+Canny edge detection for object boundaries and preprocessing
 </p>
 
+<br>
+
 <p align="center" style="font-size:17px;">
-<b>🔧 Image Processing Basics</b><br>
-Grayscale conversion • Resizing • Blurring • Noise reduction
+<b>🎨 Color Detection</b><br>
+HSV-based real-time color detection and tracking
 </p>
 
-<hr>
-
-<h2 align="center">🗂️ Repository Structure</h2>
-
-<pre align="center">
-Open_Cv/
-│
-├── demo/                     # Output images and demo visuals
-├── face_detection.py         # Real-time face detection
-├── edge_detection.py         # Canny edge detection
-├── image_processing.py       # Basic image processing operations
-├── requirements.txt          # Project dependencies
-└── README.md                 # Documentation
-</pre>
-
-<hr>
-
-<h2 align="center">🧠 Technologies Used</h2>
+<br>
 
 <p align="center" style="font-size:17px;">
-🐍 Python<br>
-👁️ OpenCV<br>
-🔢 NumPy<br>
-📷 Webcam / Image Input
+<b>⚡ Real-Time Operations</b><br>
+Multiple OpenCV operations applied on live video streams
 </p>
 
 <hr>
 
-<h2 align="center">🏗️ System Architecture</h2>
+<h2 align="center">▶️ How to Run</h2>
 
-<pre align="center">
-Camera / Image Input
-        ↓
-Preprocessing (Resize, Grayscale)
-        ↓
-Vision Algorithm (Detection / Edge Processing)
-        ↓
-Real-Time Visualization
-</pre>
+<br>
 
 <p align="center" style="font-size:17px;">
-This architecture allows easy replacement of classical algorithms with
-<b>deep learning models</b> such as CNNs or YOLO in the future.
-</p>
-
-<hr>
-
-<h2 align="center">⚙️ Setup & Usage</h2>
-
-<p align="center" style="font-size:17px;">
-<b>1️⃣ Clone the Repository</b><br>
+<b>1️⃣ Clone the Repository</b><br><br>
 <code>git clone https://github.com/Adarshkumar61/Open_Cv.git</code>
 </p>
 
-<p align="center" style="font-size:17px;">
-<b>2️⃣ Install Dependencies</b><br>
-<code>pip install opencv-python numpy</code>
-</p>
+<br>
 
 <p align="center" style="font-size:17px;">
-<b>3️⃣ Run Any Module</b><br>
-<code>python face_detection.py</code>
+<b>2️⃣ Install Dependencies</b><br><br>
+<code>pip install -r requirements.txt</code>
+</p>
+
+<br>
+
+<p align="center" style="font-size:17px;">
+<b>3️⃣ Run the Project</b><br><br>
+<code>python main.py</code>
+</p>
+
+<br>
+
+<p align="center" style="font-size:17px;">
+Select a module from the menu and the corresponding OpenCV program will start.
 </p>
 
 <hr>
 
-<h2 align="center">📸 Results & Demo</h2>
+<h2 align="center">🧪 Experiments vs Final Code</h2>
+
+<br>
 
 <p align="center" style="font-size:17px;">
-Run the scripts and capture real outputs to validate performance.
-Add screenshots inside the <code>demo/</code> folder.
+<b>modules/</b> → Clean, final, reusable implementations<br><br>
+<b>experiments/</b> → Learning trials, testing, and exploration
 </p>
 
-<p align="center">
-<img src="demo/face_detection_output.jpg" width="60%"><br>
-<b>👤 Face Detection Output</b>
-</p>
-
-<p align="center">
-<img src="demo/edge_detection_output.jpg" width="60%"><br>
-<b>🖼️ Edge Detection Output</b>
+<p align="center" style="font-size:17px;">
+This mirrors a <b>real engineering workflow</b>:<br><br>
+experiment → refine → ship clean code
 </p>
 
 <hr>
 
-<h2 align="center">🧪 Observations</h2>
+<h2 align="center">📊 Results & Observations</h2>
+
+<br>
 
 <p align="center" style="font-size:17px;">
-✔ Works in real time on standard webcams<br>
-✔ Performs best under good lighting conditions<br>
-✔ Classical methods are fast but limited compared to deep learning
+Key observations, limitations, and planned improvements are documented in:
+<br><br>
+<code>results.md</code>
 </p>
 
 <hr>
 
-<h2 align="center">📚 Learning Outcomes</h2>
+<h2 align="center">🧠 Skills Demonstrated</h2>
+
+<br>
 
 <p align="center" style="font-size:17px;">
-👁️ Strong understanding of computer vision fundamentals<br>
-⚡ Real-time image processing experience<br>
-🧩 Modular vision system design<br>
-🤖 Foundation for robotics perception systems
+👁️ Real-time image processing<br><br>
+⚡ OpenCV camera pipelines<br><br>
+🧩 Modular code design<br><br>
+🔍 Debugging & experimentation<br><br>
+📁 Professional project structuring
 </p>
 
 <hr>
 
-<h2 align="center">🚀 Future Enhancements</h2>
+<h2 align="center">🔮 Planned Improvements</h2>
+
+<br>
 
 <p align="center" style="font-size:17px;">
-🤖 YOLO / CNN-based object detection<br>
-📡 ROS2 vision node integration<br>
-📷 ESP32-CAM deployment<br>
-🚗 Autonomous robot perception module
+🤖 Deep-learning based detectors (YOLO)<br><br>
+📊 FPS & performance metrics<br><br>
+🌙 Low-light robustness improvements<br><br>
+🚗 Robotics & ROS integration
 </p>
 
 <hr>
 
 <h2 align="center">👨‍💻 Author</h2>
 
+<br>
+
 <p align="center" style="font-size:17px;">
-<b>Adarsh Kumar</b><br>
-🎓 BCA Student | 🤖 Robotics & AI Enthusiast<br>
+<b>Adarsh Kumar</b><br><br>
+BCA Student | Robotics • AI • Computer Vision<br><br>
 🔗 <a href="https://github.com/Adarshkumar61">GitHub Profile</a>
 </p>
