@@ -51,3 +51,4 @@ while True:
         break
 camera.release()
 cv2.destroyAllWindows()
+#calculate optical flow between consecutive frames and use frame differencing for motion detection
